@@ -1,6 +1,6 @@
 import logging
 
-from hyper_log_log.hyper_log_log import HyperLogLog
+from count_min_sketch.count_min_sketch import CountMinSketch
 
 logging.basicConfig(format='%(asctime)s - %(name)s - %(levelname)s - %(message)s',
                     level=logging.INFO)
