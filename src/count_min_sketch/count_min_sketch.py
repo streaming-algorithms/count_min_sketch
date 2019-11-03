@@ -16,3 +16,8 @@ class CountMinSketch:
         return np.min(
             [self.table[row][hash(str(row) + item) % self.nb_columns] for row in
              range(self.nb_rows)])
+
+    @classmethod
+    def from_error(cls, stream_size, absolute_error, error_probability):
+        return cls(nb_columns=int(np.ceil(np.exp(1) * stream_size / absolute_error)),
+                   nb_rows=int(np.ceil(np.log2(1 / error_probability))))

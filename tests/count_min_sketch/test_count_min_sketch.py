@@ -1,3 +1,4 @@
+import numpy as np
 import pytest
 
 from count_min_sketch.count_min_sketch import CountMinSketch
@@ -42,3 +43,21 @@ class TestCountMinSketch:
         count_min_sketch = CountMinSketch(nb_columns=nb_columns, nb_rows=nb_rows)
         count_min_sketch.table = table
         assert count_min_sketch.retrieve_item_frequency(item=item) == expected
+
+    @pytest.mark.parametrize("stream_size, absolute_error, error_probability", [
+        (10 ** 6, 50, 0.05),
+        (10 ** 6, 10, 0.1),
+        (10 ** 6, 100, 0.15)
+    ])
+    def test_from_error(self, stream_size, absolute_error, error_probability):
+        count_min_sketch = CountMinSketch.from_error(
+            stream_size=stream_size,
+            absolute_error=absolute_error,
+            error_probability=error_probability
+        )
+        nb_columns = int(np.ceil(np.exp(1) * stream_size / absolute_error))
+        nb_rows = int(np.ceil(np.log2(1 / error_probability)))
+        assert count_min_sketch.nb_columns == nb_columns
+        assert count_min_sketch.nb_rows == nb_rows
+        assert count_min_sketch.table == [[0 for _ in range(nb_columns)] for _ in
+                                          range(nb_rows)]
