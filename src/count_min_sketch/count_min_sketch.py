@@ -18,6 +18,6 @@ class CountMinSketch:
              range(self.nb_rows)])
 
     @classmethod
-    def from_error(cls, stream_size, absolute_error, error_probability):
-        return cls(nb_columns=int(np.ceil(np.exp(1) * stream_size / absolute_error)),
+    def from_error(cls, absolute_error, error_probability):
+        return cls(nb_columns=int(np.ceil(np.exp(1) / absolute_error)),
                    nb_rows=int(np.ceil(np.log2(1 / error_probability))))
