@@ -3,7 +3,7 @@
 #### Definition:
 The **count-min sketch** is a probabilistic data structure that serves as a frequency 
 table of events in stream of data. It uses hash functions to map events to frequencies. 
-It uses only sub-linear space ate the expense of over-counting some events due to 
+It uses only sub-linear space at the expense of over-counting some events due to 
 collisions.
 The Count-min sketch structure is a table of **w** columns, **d** rows and **d**
 hash function (one hash function by row).
